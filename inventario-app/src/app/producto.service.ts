@@ -25,4 +25,7 @@ export class ProductoService {
   editarProducto(id: number, producto: Producto): Observable<Object> {
     return this.clienthttp.put(`${this.urlBase}/${id}`, producto);
   }
+  eliminarProducto(id:number): Observable<Object> {
+    return this.clienthttp.delete(`${this.urlBase}/${id}`)
+  }
 }

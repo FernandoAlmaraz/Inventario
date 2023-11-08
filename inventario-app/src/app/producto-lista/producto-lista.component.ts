@@ -9,20 +9,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./producto-lista.component.css']
 })
 export class ProductoListaComponent implements OnInit {
-  productos:Producto[]=[];
-  constructor(private productoServicio:ProductoService,
-    private router:Router){
+  productos: Producto[] = [];
+  constructor(private productoServicio: ProductoService,
+    private router: Router) {
   }
-  ngOnInit(){
+  ngOnInit() {
     this.obtenerProductos();
   }
-  obtenerProductos(){
+  obtenerProductos() {
     this.productoServicio.obtenerProductosLista().subscribe(
-      (data)=>{
+      (data) => {
         this.productos = data;
       })
   }
-  editarProducto(id:number) {
-      this.router.navigate(["/editar-producto",id])
+  editarProducto(id: number) {
+    this.router.navigate(["/editar-producto", id])
+  }
+
+  EliminarProducto(id: number) {
+    this.productoServicio.eliminarProducto(id).subscribe({
+      next: (value) => this.obtenerProductos(),
+
+      error: (error: any) => console.log(error)
+    });
   }
 }
